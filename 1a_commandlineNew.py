@@ -1,4 +1,4 @@
-
+#CLUSTER SUMATRA VERSION
 # coding: utf-8
 
 # In[ ]:
@@ -81,7 +81,7 @@ M = 5.0
 c_0 = 0.5
 epsilon = 0.01
 rho_s = 5.0
-filepath = os.path.join('/data/aem1/new1a/corr-sumatra2/Data', sumatra_label) # 
+filepath = os.path.join('/data/aem1/new1a/cluster-sumatra-sims/Data', sumatra_label) # 
 
 # solution variable
 c_var = fp.CellVariable(mesh=mesh, name=r"$c$", hasOld=True)
@@ -124,7 +124,7 @@ def save_data(filename, f, time, cvar, steps, N):
 # solver equation    
 eqn = fp.TransientTerm(coeff=1.) == fp.DiffusionTerm(M * f_0_var(c_var)) - fp.DiffusionTerm((M, kappa))
 
-dump_times = [1.0, 5.0, 10.0, 20.0, 100.0, 200, 500, 1000]
+dump_times = [1.0, 5.0, 10.0, 20.0, 100.0, 200, 500, 1000, 2000, 3000, 10000]
 elapsed = 0.0
 steps = 0
 dt = 0.01
@@ -132,7 +132,7 @@ dt_old = dt
 tolerance = 1e-1
 dump_to_file = False
 #filename = '1a_{0}_step{1}_data_time-{2:.2f}.npz'.format(N, str(steps).rjust(6, '0'), elapsed)
-
+filename = 'anushka'
 # controls on how long the simulation runs: steps, duration, or both
 
 
