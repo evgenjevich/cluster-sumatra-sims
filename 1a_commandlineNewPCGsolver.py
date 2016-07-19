@@ -1,4 +1,4 @@
-#CLUSTER SUMATRA VERSION
+#CLUSTER SUMATRA PCG SOLVER VERSION
 # coding: utf-8
 
 # In[ ]:
@@ -36,6 +36,8 @@ def calc_dt(elapsed_time, dt, dt_old, dump_to_file, dump_times, filename):
 
     return dt, dt_old, dump_times, dump_to_file, filename
 
+
+marker = .5 #add this as a parameter at some point
 
 #load in the json parameter file here
 jsonfile = sys.argv[1]
@@ -135,7 +137,7 @@ filename = 'anushka'
 
 
 c_var.updateOld()
-from fipy.solvers.pysparse import LinearLUSolver as Solver
+from fipy.solvers.pysparse import LinearPCGSolver as Solver
 from numpy.testing import assert_almost_equal as npt 
 solver = Solver()
 print "Starting Solver."
@@ -157,13 +159,13 @@ while (steps <= total_steps) and (elapsed <= duration):
             np.savez(os.path.join(filepath,filename),
                      c_var_array=np.array(c_var),
                      dt=dt,
-                     elapsed=elapsed,
-                     steps=steps,
+                     elapsed=elapsed-dt,
+                     steps=steps-1,
                      dx=c_var.mesh.dx,
                      dy=c_var.mesh.dy,
                      nx=c_var.mesh.nx,
                      ny=c_var.mesh.ny,
-                     sweeps = total_sweeps)
+                     sweeps = sweeps)
             # record the volume integral of the free energy 
             # equivalent to the average value of the free energy for any cell,
             # multiplied by the number of cells and the area of each cell
